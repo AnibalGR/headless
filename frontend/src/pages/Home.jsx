@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { fetchGraphQL } from '../utils/graphql';
-import PostCard from '../components/PostCard';
 import ParticleBackground from '../components/ParticleBackground';
 import MacMockup from '../components/MacMockup';
 import HoverRow from '../components/HoverRow';
@@ -10,7 +9,6 @@ import WhyFullcast from '../components/WhyFullcast';
 import ProductCarousel from '../components/ProductCarousel';
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
   const [homeData, setHomeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -148,33 +146,12 @@ export default function Home() {
             }
           }
         }
-        posts {
-          nodes {
-            id
-            title
-            excerpt
-            slug
-            date
-            featuredImage {
-              node {
-                sourceUrl
-                altText
-              }
-            }
-            author {
-              node {
-                name
-              }
-            }
-          }
-        }
       }
     `;
 
     fetchGraphQL(query)
       .then(data => {
         setHomeData(data?.nodeByUri?.homeFields || null);
-        setPosts(data?.posts?.nodes || []);
         setLoading(false);
       })
       .catch(err => {
@@ -382,41 +359,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. WordPress Blog Integration Section */}
-      <section className="section-dark section-spacer-160">
+      {/* 4. Architecture Shift (Centered at Bottom) */}
+      <section className="architecture-shift-section">
         <div className="padding-global">
-          <div className="container-large">
-            <div className="eyebrow-wrap">
+          <div className="container-large architecture-shift-inner">
+            <div className="eyebrow-wrap centering">
               <div className="eyebrow-dot"></div>
-              <div>Resources & Updates</div>
+              <div className="eyebrow-text">THE ARCHITECTURE SHIFT</div>
             </div>
-            <h2 className="heading-56">Latest from the Inner Circle</h2>
+            <h2 className="arch-heading" dangerouslySetInnerHTML={{ __html: homeData.archHeadline }}></h2>
+            <p className="arch-subheadline">
+              {homeData.archSubheadline}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Join the Inner Circle CTA Banner */}
+      <section className="cta-banner-section">
+        <div className="padding-global">
+          <div className="container-large cta-banner-inner">
+            <div className="eyebrow-wrap centering">
+              <div className="eyebrow-dot"></div>
+              <div className="eyebrow-text">READY TO JOIN?</div>
+            </div>
             
-            {loading && (
-              <div style={{ padding: '2rem 0', color: 'rgba(255,255,255,0.5)' }}>
-                Obteniendo contenido de WordPress...
+            <h2 className="cta-banner-heading">Join the Inner Circle</h2>
+            <p className="cta-banner-description">
+              We are currently onboarding a limited number of partners who are ready to move from manual workflows to autonomous growth.
+            </p>
+            
+            <form className="cta-form" onSubmit={(e) => { e.preventDefault(); alert('Thank you for joining the waitlist!'); }}>
+              <div className="cta-input-wrapper">
+                <input 
+                  type="email" 
+                  placeholder="Enter your work email" 
+                  className="cta-input"
+                  required
+                />
+                <span className="cta-input-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2"/>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                  </svg>
+                </span>
               </div>
-            )}
-
-            {error && (
-              <div style={{ color: '#D43A6E', padding: '2rem 0' }}>
-                <p>{error}</p>
-              </div>
-            )}
-
-            {!loading && !error && posts.length === 0 && (
-              <div style={{ padding: '2rem 0', color: 'rgba(255,255,255,0.5)' }}>
-                <p>No se encontraron entradas en el blog.</p>
-              </div>
-            )}
-
-            {!loading && !error && posts.length > 0 && (
-              <div className="posts-grid">
-                {posts.map(post => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-              </div>
-            )}
+              <button type="submit" className="cta-submit-btn">
+                Get Early Access
+              </button>
+            </form>
+            
+            <p className="cta-footnote">
+              Join the waitlist for the AI-native GTM revolution.
+            </p>
           </div>
         </div>
       </section>
