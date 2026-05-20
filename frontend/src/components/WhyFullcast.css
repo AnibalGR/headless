@@ -1,0 +1,125 @@
+.why-fullcast-section {
+  background: var(--fc-dark);
+  color: var(--fc-white);
+  padding: 8rem 0;
+}
+
+.why-fullcast-container {
+  width: 100%;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.why-fullcast-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.why-fullcast-card {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--fc-radius-lg);
+  padding: 4.5rem 4rem;
+}
+
+.why-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--fc-font-mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.56);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.why-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--fc-blue);
+}
+
+.why-title {
+  font-family: var(--fc-font-display);
+  font-size: clamp(1.8rem, 2.5vw, 2.35rem);
+  line-height: 1.35;
+  color: var(--fc-white);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.why-fullcast-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.why-description {
+  font-size: clamp(1.05rem, 1.2vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--fc-muted-on-dark);
+  margin-bottom: 2.5rem;
+}
+
+.why-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fc-white);
+  font-size: 1rem;
+  font-weight: 600;
+  width: fit-content;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+.why-link:hover {
+  color: var(--fc-blue);
+  border-bottom-color: var(--fc-blue);
+}
+
+.why-link-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.why-link:hover .why-link-arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .why-fullcast-grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+  
+  .why-fullcast-card {
+    padding: 3.5rem 2.5rem;
+  }
+  
+  .why-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .why-fullcast-section {
+    padding: 5rem 0;
+  }
+  
+  .why-fullcast-card {
+    padding: 2.5rem 1.75rem;
+  }
+  
+  .why-title {
+    font-size: 1.6rem;
+  }
+}

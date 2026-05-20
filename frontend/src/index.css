@@ -1,0 +1,108 @@
+:root {
+  /* Fullcast Dark Palette */
+  --fc-dark: #171717;
+  --fc-dark-deep: #1c1c1c;
+  --fc-white: #ffffff;
+  
+  /* Text & Accents */
+  --fc-text-dark: #1a1a17;
+  --fc-muted-dark: #5c5c5c;
+  --fc-muted-light: rgba(255, 255, 255, 0.66);
+  --fc-muted-dim: rgba(255, 255, 255, 0.46);
+  --fc-muted-on-dark: #d1d1d1;
+  
+  --fc-blue: #208fff;
+  --fc-blue-strong: #0071e3;
+  --fc-cyan: #00b0c4;
+  --fc-teal: #29c4a9;
+  --fc-orange: #e75525;
+  --fc-orange-soft: #fce9df;
+  --fc-orange-text: #b43f18;
+
+  /* Borders & Radii */
+  --fc-border-light: rgba(255, 255, 255, 0.1);
+  --fc-border-mid: rgba(255, 255, 255, 0.18);
+  --fc-radius-pill: 999px;
+  --fc-radius-lg: 24px;
+  --fc-radius-md: 16px;
+  --fc-radius-sm: 12px;
+
+  /* Typography */
+  --fc-font-display: 'Fraunces', Georgia, serif;
+  --fc-font-body: 'Inter', system-ui, sans-serif;
+  --fc-font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--fc-dark);
+  color: var(--fc-white);
+  font-family: var(--fc-font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: inherit;
+  margin-bottom: 0.5em;
+  font-weight: normal;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Base Utility Classes */
+.section-dark {
+  background: var(--fc-dark);
+  color: var(--fc-white);
+}
+
+.section-dark-deep {
+  background: var(--fc-dark-deep);
+  color: var(--fc-white);
+}
+
+.section-light {
+  background: var(--fc-white);
+  color: var(--fc-text-dark);
+}
+
+/* Animations */
+@keyframes auroraDrift {
+  0%, 100% { transform: translate(0%, 0%); }
+  50% { transform: translate(2%, -2%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hover-row-arrow-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}

@@ -1,0 +1,84 @@
+.logo-marquee-section {
+  padding: 4rem 0;
+  background-color: transparent; /* Assuming the body background carries over, or #171717 */
+  overflow: hidden;
+  position: relative;
+  z-index: 10; /* Above background particles */
+}
+
+.logo-marquee-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--fc-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--fc-muted-on-dark);
+  text-transform: uppercase;
+  margin-bottom: 3.5rem;
+}
+
+.fc-blue-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #0EA5E9;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(14, 165, 233, 0.6);
+}
+
+.marquee-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: fit-content;
+  animation: scroll-marquee 40s linear infinite;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 7rem;
+  padding-right: 7rem; /* Crucial for seamless looping */
+}
+
+.marquee-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  filter: grayscale(100%) brightness(150%);
+}
+
+.marquee-logo:hover {
+  opacity: 1;
+  filter: grayscale(0%) brightness(100%);
+}
+
+.marquee-logo img {
+  height: 100%;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+@keyframes scroll-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
