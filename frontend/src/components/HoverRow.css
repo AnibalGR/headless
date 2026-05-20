@@ -109,9 +109,21 @@
 
 @media (max-width: 991px) {
   .hover-row {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+    padding: 2rem 2rem;
+  }
+
+  .hover-row__title {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .hover-row {
     grid-template-columns: 1fr;
     row-gap: 1.25rem;
-    padding: 2rem;
+    padding: 1.75rem;
   }
   
   .hover-row__copy {
@@ -135,5 +147,20 @@
     color: #3d5349;
     animation: none;
     transform: scale(1.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .hover-row {
+    padding: 1.5rem;
+    row-gap: 1rem;
+  }
+
+  .hover-row__title {
+    font-size: 1.15rem;
+  }
+
+  .hover-row__copy {
+    font-size: 0.9rem;
   }
 }

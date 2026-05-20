@@ -82,3 +82,39 @@
     transform: translateX(-50%);
   }
 }
+
+@media (max-width: 767px) {
+  .logo-marquee-section {
+    padding: 2.5rem 0;
+  }
+
+  .logo-marquee-eyebrow {
+    margin-bottom: 2rem;
+    font-size: 9px;
+  }
+
+  .marquee-logo {
+    height: 28px;
+  }
+
+  .marquee-content {
+    gap: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-marquee-section {
+    padding: 2rem 0;
+  }
+
+  .marquee-logo {
+    height: 24px;
+  }
+
+  .marquee-content {
+    gap: 3rem;
+    padding-right: 3rem;
+  }
+}
+

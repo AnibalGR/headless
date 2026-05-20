@@ -18,6 +18,47 @@
   flex-direction: column;
 }
 
+/* Tablet landscape (768–1199px): 2-column hero layout */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .fc-wrap {
+    position: relative;
+    left: unset;
+    transform: none;
+    width: 100%;
+    min-width: unset;
+    max-width: 100%;
+    height: 440px;
+    max-height: 440px;
+    border-radius: 12px;
+    margin: 0;
+  }
+}
+
+/* Tablet portrait and below (≤ 767px): stacked hero layout */
+@media (max-width: 767px) {
+  .fc-wrap {
+    position: relative;
+    left: unset;
+    transform: none;
+    width: 100%;
+    min-width: unset;
+    max-width: 100%;
+    height: 360px;
+    max-height: 360px;
+    border-radius: 12px;
+    margin: 0 auto;
+  }
+}
+
+/* Small mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .fc-wrap {
+    height: 300px;
+    max-height: 300px;
+  }
+}
+
+
 .fc-chrome {
   background: #17263B;
   height: 44px;
