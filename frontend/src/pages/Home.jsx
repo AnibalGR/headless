@@ -143,6 +143,19 @@ export default function Home() {
                   altText
                 }
               }
+              heroEyebrow
+              heroEmailPlaceholder
+              heroCtaText
+              heroMicrocopy
+              archEyebrow
+              advEyebrow
+              advCtaText
+              ctaEyebrow
+              ctaHeading
+              ctaDescription
+              ctaEmailPlaceholder
+              ctaButtonText
+              ctaFootnote
             }
           }
         }
@@ -258,18 +271,18 @@ export default function Home() {
               <div className="hero-main-content">
                 <div className="eyebrow-wrap">
                   <div className="eyebrow-dot"></div>
-                  <div>AI-NATIVE GTM PLATFORM</div>
+                  <div>{homeData.heroEyebrow || 'AI-NATIVE GTM PLATFORM'}</div>
                 </div>
                 <h1 className="heading-hero" dangerouslySetInnerHTML={{ __html: homeData.heroHeadline }}></h1>
                 <p className="paragraph-large">
                   {homeData.heroSubheadline}
                 </p>
                 <div className="hero-email-form">
-                  <input type="email" placeholder="Enter your work email" className="hero-email-input" />
-                  <button className="btn-primary">Get Early Access</button>
+                  <input type="email" placeholder={homeData.heroEmailPlaceholder || 'Enter your work email'} className="hero-email-input" />
+                  <button className="btn-primary">{homeData.heroCtaText || 'Get Early Access'}</button>
                 </div>
                 <p className="email-microcopy">
-                  Join the waitlist for the AI-native GTM revolution.
+                  {homeData.heroMicrocopy}
                 </p>
               </div>
 
@@ -317,7 +330,7 @@ export default function Home() {
             <div className="advantage-header">
               <div className="eyebrow-wrap">
                 <div className="eyebrow-dot"></div>
-                <div>The AI-Native Advantage</div>
+                <div>{homeData.advEyebrow || 'The AI-Native Advantage'}</div>
               </div>
               <h2 className="heading-72" style={{ maxWidth: '28ch' }}>
                 {homeData.advMainHeadline}
@@ -332,26 +345,31 @@ export default function Home() {
                 number="(01)"
                 title={homeData.adv1Title}
                 description={homeData.adv1Desc}
+                ctaText={homeData.advCtaText}
               />
               <HoverRow 
                 number="(02)"
                 title={homeData.adv2Title}
                 description={homeData.adv2Desc}
+                ctaText={homeData.advCtaText}
               />
               <HoverRow 
                 number="(03)"
                 title={homeData.adv3Title}
                 description={homeData.adv3Desc}
+                ctaText={homeData.advCtaText}
               />
               <HoverRow 
                 number="(04)"
                 title={homeData.adv4Title}
                 description={homeData.adv4Desc}
+                ctaText={homeData.advCtaText}
               />
               <HoverRow 
                 number="(05)"
                 title={homeData.adv5Title}
                 description={homeData.adv5Desc}
+                ctaText={homeData.advCtaText}
               />
             </div>
 
@@ -365,7 +383,7 @@ export default function Home() {
           <div className="container-large architecture-shift-inner">
             <div className="eyebrow-wrap centering">
               <div className="eyebrow-dot"></div>
-              <div className="eyebrow-text">THE ARCHITECTURE SHIFT</div>
+              <div className="eyebrow-text">{homeData.archEyebrow || 'THE ARCHITECTURE SHIFT'}</div>
             </div>
             <h2 className="arch-heading" dangerouslySetInnerHTML={{ __html: homeData.archHeadline }}></h2>
             <p className="arch-subheadline">
@@ -381,19 +399,19 @@ export default function Home() {
           <div className="container-large cta-banner-inner">
             <div className="eyebrow-wrap centering">
               <div className="eyebrow-dot"></div>
-              <div className="eyebrow-text">READY TO JOIN?</div>
+              <div className="eyebrow-text">{homeData.ctaEyebrow || 'READY TO JOIN?'}</div>
             </div>
             
-            <h2 className="cta-banner-heading">Join the Inner Circle</h2>
+            <h2 className="cta-banner-heading">{homeData.ctaHeading || 'Join the Inner Circle'}</h2>
             <p className="cta-banner-description">
-              We are currently onboarding a limited number of partners who are ready to move from manual workflows to autonomous growth.
+              {homeData.ctaDescription}
             </p>
             
             <form className="cta-form" onSubmit={(e) => { e.preventDefault(); alert('Thank you for joining the waitlist!'); }}>
               <div className="cta-input-wrapper">
                 <input 
                   type="email" 
-                  placeholder="Enter your work email" 
+                  placeholder={homeData.ctaEmailPlaceholder || 'Enter your work email'} 
                   className="cta-input"
                   required
                 />
@@ -405,16 +423,17 @@ export default function Home() {
                 </span>
               </div>
               <button type="submit" className="cta-submit-btn">
-                Get Early Access
+                {homeData.ctaButtonText || 'Get Early Access'}
               </button>
             </form>
             
             <p className="cta-footnote">
-              Join the waitlist for the AI-native GTM revolution.
+              {homeData.ctaFootnote}
             </p>
           </div>
         </div>
       </section>
+
       
     </div>
   );

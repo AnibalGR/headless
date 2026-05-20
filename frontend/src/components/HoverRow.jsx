@@ -1,6 +1,6 @@
 import './HoverRow.css';
 
-export default function HoverRow({ number, title, description, link = "#" }) {
+export default function HoverRow({ number, title, description, ctaText = "Join the Waitlist", link = "#" }) {
   return (
     <section className="cta-row">
       <a href={link} className="hover-row">
@@ -8,10 +8,11 @@ export default function HoverRow({ number, title, description, link = "#" }) {
         <h3 className="hover-row__title">{title}</h3>
         <p className="hover-row__copy">{description}</p>
         <div className="hover-row__cta">
-          <span>Join the Waitlist</span>
+          <span>{ctaText}</span>
           <div className="hover-row__arrow">→</div>
         </div>
       </a>
     </section>
   );
 }
+

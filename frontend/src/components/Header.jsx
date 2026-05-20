@@ -4,15 +4,38 @@ import { fetchGraphQL } from '../utils/graphql';
 
 export default function Header() {
   const [siteTitle, setSiteTitle] = useState('Stage Marketing');
+  const [navPrimaryText, setNavPrimaryText] = useState('Inicio');
+  const [navCtaText, setNavCtaText] = useState('Admin Panel');
 
   useEffect(() => {
-    fetchGraphQL('{ generalSettings { title } }')
+    const query = `
+      query GetSiteSettings {
+        generalSettings {
+          title
+        }
+        nodeByUri(uri: "/") {
+          ... on Page {
+            homeFields {
+              navPrimaryLinkText
+              navCtaText
+            }
+          }
+        }
+      }
+    `;
+
+    fetchGraphQL(query)
       .then(data => {
         if (data?.generalSettings?.title) {
           setSiteTitle(data.generalSettings.title);
         }
+        const fields = data?.nodeByUri?.homeFields;
+        if (fields) {
+          if (fields.navPrimaryLinkText) setNavPrimaryText(fields.navPrimaryLinkText);
+          if (fields.navCtaText) setNavCtaText(fields.navCtaText);
+        }
       })
-      .catch(err => console.error('Error fetching site settings', err));
+      .catch(err => console.error('Error fetching header settings', err));
   }, []);
 
   return (
@@ -24,17 +47,18 @@ export default function Header() {
           <span className="badge">Headless</span>
         </Link>
         <nav className="site-navigation">
-          <Link to="/" className="nav-link">Inicio</Link>
+          <Link to="/" className="nav-link">{navPrimaryText}</Link>
           <a 
             href="https://headless.stagemarketingdemo.com/wp-admin" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="nav-btn"
           >
-            Admin Panel
+            {navCtaText}
           </a>
         </nav>
       </div>
     </header>
   );
 }
+

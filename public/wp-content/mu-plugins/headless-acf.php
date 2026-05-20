@@ -45,6 +45,35 @@ function register_headless_acf_fields() {
                     'type' => 'textarea',
                     'rows' => 3,
                 ),
+                array(
+                    'key' => 'field_hero_eyebrow',
+                    'label' => 'Hero Eyebrow Text',
+                    'name' => 'hero_eyebrow',
+                    'type' => 'text',
+                    'default_value' => 'AI-NATIVE GTM PLATFORM',
+                ),
+                array(
+                    'key' => 'field_hero_email_placeholder',
+                    'label' => 'Hero Email Placeholder',
+                    'name' => 'hero_email_placeholder',
+                    'type' => 'text',
+                    'default_value' => 'Enter your work email',
+                ),
+                array(
+                    'key' => 'field_hero_cta_text',
+                    'label' => 'Hero CTA Button Text',
+                    'name' => 'hero_cta_text',
+                    'type' => 'text',
+                    'default_value' => 'Get Early Access',
+                ),
+                array(
+                    'key' => 'field_hero_microcopy',
+                    'label' => 'Hero Microcopy (below form)',
+                    'name' => 'hero_microcopy',
+                    'type' => 'text',
+                    'default_value' => 'Join the waitlist for the AI-native GTM revolution.',
+                ),
+
                 
                 // ARCHITECTURE SECTION
                 array(
@@ -60,10 +89,32 @@ function register_headless_acf_fields() {
                     'type' => 'textarea',
                     'rows' => 3,
                 ),
+                array(
+                    'key' => 'field_arch_eyebrow',
+                    'label' => 'Architecture Shift: Eyebrow Text',
+                    'name' => 'arch_eyebrow',
+                    'type' => 'text',
+                    'default_value' => 'THE ARCHITECTURE SHIFT',
+                ),
                 
                 // ADVANTAGES SECTION
                 array(
+                    'key' => 'field_adv_eyebrow',
+                    'label' => 'Advantages: Eyebrow Text',
+                    'name' => 'adv_eyebrow',
+                    'type' => 'text',
+                    'default_value' => 'The AI-Native Advantage',
+                ),
+                array(
+                    'key' => 'field_adv_cta_text',
+                    'label' => 'Advantages: Row CTA Button Text',
+                    'name' => 'adv_cta_text',
+                    'type' => 'text',
+                    'default_value' => 'Join the Waitlist',
+                ),
+                array(
                     'key' => 'field_adv_main_headline',
+
                     'label' => 'Advantages Main Headline',
                     'name' => 'adv_main_headline',
                     'type' => 'text',
@@ -593,6 +644,65 @@ function register_headless_acf_fields() {
                     'type' => 'text',
                     'default_value' => 'linear-gradient(135deg, #3e5d50 0%, #678266 100%)',
                 ),
+
+                // CTA BANNER SECTION (Join the Inner Circle)
+                array(
+                    'key' => 'field_cta_eyebrow',
+                    'label' => 'CTA Banner: Eyebrow Text',
+                    'name' => 'cta_eyebrow',
+                    'type' => 'text',
+                    'default_value' => 'READY TO JOIN?',
+                ),
+                array(
+                    'key' => 'field_cta_heading',
+                    'label' => 'CTA Banner: Heading',
+                    'name' => 'cta_heading',
+                    'type' => 'text',
+                    'default_value' => 'Join the Inner Circle',
+                ),
+                array(
+                    'key' => 'field_cta_description',
+                    'label' => 'CTA Banner: Description',
+                    'name' => 'cta_description',
+                    'type' => 'textarea',
+                    'rows' => 3,
+                    'default_value' => 'We are currently onboarding a limited number of partners who are ready to move from manual workflows to autonomous growth.',
+                ),
+                array(
+                    'key' => 'field_cta_email_placeholder',
+                    'label' => 'CTA Banner: Email Input Placeholder',
+                    'name' => 'cta_email_placeholder',
+                    'type' => 'text',
+                    'default_value' => 'Enter your work email',
+                ),
+                array(
+                    'key' => 'field_cta_button_text',
+                    'label' => 'CTA Banner: Button Text',
+                    'name' => 'cta_button_text',
+                    'type' => 'text',
+                    'default_value' => 'Get Early Access',
+                ),
+                array(
+                    'key' => 'field_cta_footnote',
+                    'label' => 'CTA Banner: Footnote Text',
+                    'name' => 'cta_footnote',
+                    'type' => 'text',
+                    'default_value' => 'Join the waitlist for the AI-native GTM revolution.',
+                ),
+                array(
+                    'key' => 'field_nav_primary_link_text',
+                    'label' => 'Primary Nav Link Text',
+                    'name' => 'nav_primary_link_text',
+                    'type' => 'text',
+                    'default_value' => 'Inicio',
+                ),
+                array(
+                    'key' => 'field_nav_cta_text',
+                    'label' => 'Nav CTA Button Text',
+                    'name' => 'nav_cta_text',
+                    'type' => 'text',
+                    'default_value' => 'Admin Panel',
+                ),
             ),
             'location' => array(
                 array(
@@ -618,3 +728,4 @@ function register_headless_acf_fields() {
         ) );
     }
 }
+
