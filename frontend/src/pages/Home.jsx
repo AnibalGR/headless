@@ -8,8 +8,109 @@ import CustomerStories from '../components/CustomerStories';
 import WhyFullcast from '../components/WhyFullcast';
 import ProductCarousel from '../components/ProductCarousel';
 
+const DEFAULT_HOME_DATA = {
+  heroKicker1: 'Fullcast.ai',
+  heroKicker2: 'for the AI-native era of revenue.',
+  heroHeadline: 'Where <em>Intelligence</em>, <em>Strategy</em>, and <em>Execution</em> meet.',
+  heroSubheadline: 'Most GTM tools were built 15 years ago as static databases. Fullcast.ai is the first Sales Performance Management platform built from the ground up with a neural core.',
+  heroEyebrow: 'AI-NATIVE GTM PLATFORM',
+  heroEmailPlaceholder: 'Enter your work email',
+  heroCtaText: 'Get Early Access',
+  heroMicrocopy: 'Join the waitlist for the AI-native GTM revolution.',
+  
+  trustedByText: 'TRUSTED BY THE REVOPS LEADERS OF TOMORROW',
+  
+  whyEyebrow: 'WHY FULLCAST.AI',
+  whyTitle: 'Software is static. Revenue is dynamic.',
+  whyDescription: 'Historically, GTM tools were built as static databases of accounts and opportunities. Fullcast.ai is the first Sales Performance Management platform built from the ground up with a neural core — making it a living, breathing, and self-optimizing intelligence.',
+  whyLinkUrl: '#',
+
+  productEyebrow: 'THE PRODUCT',
+  productHeadline: 'Revenue intelligence you can see.',
+  productSubhead: 'See the pipeline, the patterns, and the plays — unified. Fullcast.ai collapses five legacy dashboards into one neural workspace that learns every time you use it.',
+  
+  prod1Badge: 'REVENUE PLAYBOOK',
+  prod1Title: 'Turn territory plans into pipeline.',
+  prod1Desc: 'Align GTM teams, optimize coverage, and route every opportunity to the right rep — tracked from plan to performance.',
+  prod1Color: 'linear-gradient(135deg, #3e5d50 0%, #678266 100%)',
+  prod1Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/gtm_dashboard_planning_1779274223517.png' } },
+  
+  prod2Badge: 'PIPELINE SIGNAL',
+  prod2Title: 'Forecast with conviction.',
+  prod2Desc: 'Every deal scored against 40M+ comparable outcomes — not a rep\'s gut.',
+  prod2Color: 'linear-gradient(135deg, #3e5d50 0%, #678266 100%)',
+  prod2Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/gtm_dashboard_forecasting_1779273797172.png' } },
+  
+  prod3Badge: 'PATTERN DETECTION',
+  prod3Title: 'Catch drift before it costs you.',
+  prod3Desc: 'Fullcast.ai flags capacity gaps, stalled segments, and comp leakage in real time.',
+  prod3Color: 'linear-gradient(135deg, #3e5d50 0%, #678266 100%)',
+  prod3Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/gtm_dashboard_suggestions_1779273781486.png' } },
+  
+  prod4Badge: 'TERRITORY INTELLIGENCE',
+  prod4Title: 'Plan without spreadsheets.',
+  prod4Desc: 'Rebalance quotas, coverage, and capacity in one canvas — models update live.',
+  prod4Color: 'linear-gradient(135deg, #3e5d50 0%, #678266 100%)',
+  prod4Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/gtm_dashboard_territories_1779273812357.png' } },
+  
+  prod5Badge: 'REVENUE PLAYBOOK',
+  prod5Title: 'Turn insight into action.',
+  prod5Desc: 'Prescriptive plays routed to the right AE, CSM, or ops lead — tracked end to end.',
+  prod5Color: 'linear-gradient(135deg, #3e5d50 0%, #678266 100%)',
+  prod5Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/gtm_dashboard_actions_1779274244687.png' } },
+  
+  advEyebrow: 'The AI-Native Advantage',
+  advMainHeadline: 'In an AI-native ecosystem, your data doesn\'t sit there rotting in your CRM — it learns, predicts, and acts.',
+  advMainSubheadline: 'Fullcast.ai eliminates the friction between planning the year and running the business.',
+  adv1Title: 'Autonomous Territory & Quota Management',
+  adv1Desc: 'Our AI analyzes market density and historical performance to suggest optimal territory maps and quotas that maximize attainment automatically.',
+  adv2Title: 'Self-Correcting Capacity Planning',
+  adv2Desc: 'As your team scales or churns, the platform recalculates your hiring roadmap in real-time to ensure you never fall behind your revenue ramp.',
+  adv3Title: 'Predictive Forecasting',
+  adv3Desc: 'Moving beyond basic math, our models weigh thousands of signals — from rep behavior to macro trends — to deliver the most accurate forecast in the industry.',
+  adv4Title: 'Prescriptive Analytics',
+  adv4Desc: 'Our AI surfaces alerts that tell you exactly which deals are at risk and which territories are underserved — before they cost you pipeline.',
+  adv5Title: 'Dynamic Commissions',
+  adv5Desc: 'Incentive compensation that adapts. Automated calculations pay reps instantly and accurately, with AI-driven what-if modeling for future plan designs.',
+  advCtaText: 'Join the Waitlist',
+  
+  storiesEyebrow: 'CUSTOMER STORIES',
+  storiesHeadline: 'How we help revenue teams scale.',
+  
+  story1Badge: 'GLOBAL GROWTH',
+  story1Title: 'How Noah Marks aligned global growth with Fullcast.',
+  story1Description: 'Brought clarity, structure, and alignment to a complex global motion — avoiding months of ramp time and eliminating manual territory, quota, and lead-routing recalculations.',
+  story1AuthorName: 'Noah Marks',
+  story1AuthorTitle: 'SVP, Commercial Strategy & Operations',
+  story1Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/noah_marks_1779271872204.jpg' } },
+  story1Link: '#',
+  
+  story2Badge: 'REVOPS AUTOMATION',
+  story2Title: 'How Clari reduced pipeline leakage by 40%.',
+  story2Description: 'Automating lead-to-account matching and routing allowed us to cut response times down from 48 hours to under 5 minutes. The productivity gains have been phenomenal.',
+  story2AuthorName: 'Sarah Jenkins',
+  story2AuthorTitle: 'VP of Revenue Operations, Clari',
+  story2Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/sarah_jenkins_1779271889901.jpg' } },
+  story2Link: '#',
+  
+  story3Badge: 'TERRITORY PLANNING',
+  story3Title: 'How Databricks scaled territory planning in days.',
+  story3Description: 'Before Fullcast, we spent months recalculating quotas and boundaries manually. Now we model, simulate, and push changes in a single weekend, saving hundreds of engineering hours.',
+  story3AuthorName: 'Michael Chen',
+  story3AuthorTitle: 'Director of GTM Strategy, Databricks',
+  story3Image: { node: { sourceUrl: '/wp-content/uploads/2026/05/michael_chen_1779271906958.jpg' } },
+  story3Link: '#',
+  
+  ctaEyebrow: 'READY TO JOIN?',
+  ctaHeading: 'Join the Inner Circle',
+  ctaDescription: 'We are currently onboarding a limited number of partners who are ready to move from manual workflows to autonomous growth.',
+  ctaEmailPlaceholder: 'Enter your work email',
+  ctaButtonText: 'Get Early Access',
+  ctaFootnote: 'Join the waitlist for the AI-native GTM revolution.',
+};
+
 export default function Home() {
-  const [homeData, setHomeData] = useState(null);
+  const [homeData, setHomeData] = useState(DEFAULT_HOME_DATA);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,12 +127,166 @@ export default function Home() {
               heroHeadline
               heroSubheadline
               trustedByText
-              trustedByLogos {
-                logoImage {
-                  node {
-                    sourceUrl
-                    altText
-                  }
+              trustedByMarqueeSpeed
+              trustedByLogoSize
+              trustedByLogo1 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo2 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo3 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo4 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo5 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo6 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo7 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo8 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo9 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo10 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo11 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo12 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo13 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo14 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo15 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo16 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo17 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo18 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo19 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
+                }
+              }
+              trustedByLogo20 {
+                node {
+                  sourceUrl
+                  srcSet
+                  sizes
+                  altText
                 }
               }
               archHeadline
@@ -58,6 +313,8 @@ export default function Home() {
               story1Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -70,6 +327,8 @@ export default function Home() {
               story2Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -82,6 +341,8 @@ export default function Home() {
               story3Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -100,6 +361,8 @@ export default function Home() {
               prod1Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -110,6 +373,8 @@ export default function Home() {
               prod2Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -120,6 +385,8 @@ export default function Home() {
               prod3Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -130,6 +397,8 @@ export default function Home() {
               prod4Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -140,6 +409,8 @@ export default function Home() {
               prod5Image {
                 node {
                   sourceUrl
+                  srcSet
+                  sizes
                   altText
                 }
               }
@@ -173,9 +444,7 @@ export default function Home() {
       });
   }, []);
 
-  if (loading) return <div style={{ padding: '4rem', textAlign: 'center', color: '#fff' }}>Cargando contenido dinámico...</div>;
-  if (error) return <div style={{ padding: '4rem', textAlign: 'center', color: '#ff4444' }}>{error}</div>;
-  if (!homeData) return <div style={{ padding: '4rem', textAlign: 'center', color: '#fff' }}>No se encontraron los datos de la portada.</div>;
+  // No block loading screen. We render the page instantly using DEFAULT_HOME_DATA.
 
   const stories = [
     {
@@ -294,7 +563,30 @@ export default function Home() {
       {/* 1.5 Trusted By Logos (Marquee) */}
       <LogoMarquee 
         eyebrowText={homeData.trustedByText} 
-        logos={homeData.trustedByLogos?.map(item => item.logoImage?.node).filter(Boolean) || []} 
+        speed={homeData.trustedByMarqueeSpeed}
+        size={homeData.trustedByLogoSize} 
+        logos={[
+          homeData.trustedByLogo1?.node,
+          homeData.trustedByLogo2?.node,
+          homeData.trustedByLogo3?.node,
+          homeData.trustedByLogo4?.node,
+          homeData.trustedByLogo5?.node,
+          homeData.trustedByLogo6?.node,
+          homeData.trustedByLogo7?.node,
+          homeData.trustedByLogo8?.node,
+          homeData.trustedByLogo9?.node,
+          homeData.trustedByLogo10?.node,
+          homeData.trustedByLogo11?.node,
+          homeData.trustedByLogo12?.node,
+          homeData.trustedByLogo13?.node,
+          homeData.trustedByLogo14?.node,
+          homeData.trustedByLogo15?.node,
+          homeData.trustedByLogo16?.node,
+          homeData.trustedByLogo17?.node,
+          homeData.trustedByLogo18?.node,
+          homeData.trustedByLogo19?.node,
+          homeData.trustedByLogo20?.node,
+        ].filter(Boolean)} 
       />
 
       {/* Customer Stories Carousel */}

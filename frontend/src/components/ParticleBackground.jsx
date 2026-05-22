@@ -88,12 +88,18 @@ export default function ParticleBackground() {
       }
     }
 
+    let currentWidth = 0;
+    let currentHeight = 0;
+
     function resizeCanvas() {
       const container = canvas.parentElement;
       const rect = container.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
       
       if (!rect.width || !rect.height) return;
+      
+      currentWidth = rect.width;
+      currentHeight = rect.height;
       
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
@@ -126,14 +132,11 @@ export default function ParticleBackground() {
     }
 
     function animate() {
-      const container = canvas.parentElement;
-      const rect = container.getBoundingClientRect();
-      
-      // Limpiar canvas en cada frame (se limpia respetando el DPR ya que rect.width/height son tamaños CSS)
-      ctx.clearRect(0, 0, rect.width, rect.height);
+      // Limpiar canvas en cada frame usando las dimensiones cacheadas
+      ctx.clearRect(0, 0, currentWidth, currentHeight);
       
       for (let i = 0; i < particles.length; i++) {
-        particles[i].update(rect.width, rect.height);
+        particles[i].update(currentWidth, currentHeight);
       }
       
       drawConnections();

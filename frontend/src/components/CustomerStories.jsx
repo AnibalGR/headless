@@ -174,6 +174,8 @@ export default function CustomerStories({ eyebrowText, headlineText, stories }) 
                 >
                   {slides.map((story, index) => {
                     const imageUrl = story.image?.node?.sourceUrl || story.image?.sourceUrl || '';
+                    const srcSet = story.image?.node?.srcSet || story.image?.srcSet || '';
+                    const sizes = "(max-width: 991px) 95vw, 550px";
                     const altText = story.image?.node?.altText || story.image?.altText || story.authorName;
                     const realIndex = hasMultiple
                       ? (index - 1 + activeStories.length) % activeStories.length
@@ -197,7 +199,11 @@ export default function CustomerStories({ eyebrowText, headlineText, stories }) 
                               <img 
                                 className="story-card-img" 
                                 src={imageUrl} 
+                                srcSet={srcSet || undefined}
+                                sizes={sizes || undefined}
                                 alt={altText} 
+                                loading="lazy"
+                                decoding="async"
                               />
                             )}
                             <div className="story-media-overlay"></div>

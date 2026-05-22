@@ -73,9 +73,36 @@ export default function PostDetail() {
 
   if (loading) {
     return (
-      <div className="detail-container loading-wrapper animate-fade-in">
-        <div className="spinner"></div>
-        <p>Cargando contenido de la publicación...</p>
+      <div 
+        className="detail-container loading-wrapper animate-fade-in"
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
+          background: '#171717',
+          padding: '2rem'
+        }}
+      >
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '3px solid rgba(255, 255, 255, 0.1)',
+          borderTopColor: '#1b74e4',
+          borderRadius: '50%',
+          animation: 'fc-spin 1s linear infinite',
+          marginBottom: '1.5rem'
+        }} />
+        <style>{`
+          @keyframes fc-spin {
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+        <p style={{ margin: 0, fontSize: '14px', letterSpacing: '0.05em', opacity: 0.8 }}>
+          Cargando contenido de la publicación...
+        </p>
       </div>
     );
   }

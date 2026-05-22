@@ -143,6 +143,8 @@ export default function ProductCarousel({ eyebrowText, headlineText, subheadText
                 >
                   {slides.map((product, index) => {
                     const imageUrl = product.image?.node?.sourceUrl || product.image?.sourceUrl || '';
+                    const srcSet = product.image?.node?.srcSet || product.image?.srcSet || '';
+                    const sizes = "(max-width: 991px) 95vw, 650px";
                     const altText = product.image?.node?.altText || product.image?.altText || product.title;
                     const realIndex = hasMultiple
                       ? (index - 1 + activeProducts.length) % activeProducts.length
@@ -166,7 +168,11 @@ export default function ProductCarousel({ eyebrowText, headlineText, subheadText
                               <img 
                                 className="product-screenshot-img" 
                                 src={imageUrl} 
+                                srcSet={srcSet || undefined}
+                                sizes={sizes || undefined}
                                 alt={altText} 
+                                loading="lazy"
+                                decoding="async"
                               />
                             ) : (
                               <div className="product-screenshot-placeholder">

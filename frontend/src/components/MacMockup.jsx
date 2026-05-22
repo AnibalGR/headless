@@ -78,6 +78,7 @@ export default function MacMockup() {
     if (prefersReducedMotion) return;
 
     let isMounted = true;
+    let localIdx = 0;
     
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -86,16 +87,19 @@ export default function MacMockup() {
         await wait(2100);
         if (!isMounted) break;
         
-        const nextIdx = (activeIdx + 1) % VIEWS.length;
+        const nextIdx = (localIdx + 1) % VIEWS.length;
         const nextView = VIEWS[nextIdx];
         
         // 1. Move Cursor
-        const iconEl = railRefs.current[nextView.key];
-        if (iconEl && screenRef.current && cursorRef.current) {
-          const sRect = screenRef.current.getBoundingClientRect();
-          const iRect = iconEl.getBoundingClientRect();
-          const top = iRect.top - sRect.top + (iRect.height / 2) - 7;
-          const left = iRect.left - sRect.left + (iRect.width / 2) - 7;
+        if (cursorRef.current) {
+          const left = 25; // 64px rail width / 2 - 7px offset
+          const positions = {
+            patterns: 79,     // Computed icon center offsets
+            suggestions: 135,
+            deals: 191,
+            companies: 247
+          };
+          const top = positions[nextView.key] || 79;
           
           cursorRef.current.style.opacity = '1';
           cursorRef.current.style.top = `${top}px`;
@@ -121,6 +125,7 @@ export default function MacMockup() {
         await wait(110);
         if (!isMounted) break;
         
+        localIdx = nextIdx;
         setActiveIdx(nextIdx);
         setFadingUrl(false);
       }
@@ -131,7 +136,7 @@ export default function MacMockup() {
     return () => {
       isMounted = false;
     };
-  }, [activeIdx]);
+  }, []);
 
   return (
     <div className="fc-wrap">
