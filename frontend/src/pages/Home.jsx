@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { fetchGraphQL } from '../utils/graphql';
-import ParticleBackground from '../components/ParticleBackground';
+import React, { Suspense } from 'react';
+
+const ParticleBackground = React.lazy(() => import('../components/ParticleBackground'));
+const HoverRow = React.lazy(() => import('../components/HoverRow'));
+const LogoMarquee = React.lazy(() => import('../components/LogoMarquee'));
+const CustomerStories = React.lazy(() => import('../components/CustomerStories'));
+const WhyFullcast = React.lazy(() => import('../components/WhyFullcast'));
+const ProductCarousel = React.lazy(() => import('../components/ProductCarousel'));
 import MacMockup from '../components/MacMockup';
-import HoverRow from '../components/HoverRow';
-import LogoMarquee from '../components/LogoMarquee';
-import CustomerStories from '../components/CustomerStories';
-import WhyFullcast from '../components/WhyFullcast';
-import ProductCarousel from '../components/ProductCarousel';
 
 const DEFAULT_HOME_DATA = {
   heroKicker1: 'Fullcast.ai',
@@ -109,13 +111,7 @@ const DEFAULT_HOME_DATA = {
   ctaFootnote: 'Join the waitlist for the AI-native GTM revolution.',
 };
 
-export default function Home() {
-  const [homeData, setHomeData] = useState(DEFAULT_HOME_DATA);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const query = `
+const query = `
       query GetHomeAndPosts {
         nodeByUri(uri: "/") {
           ... on Page {
@@ -433,7 +429,15 @@ export default function Home() {
       }
     `;
 
-    fetchGraphQL(query)
+const preloadedDataPromise = fetchGraphQL(query);
+
+export default function Home() {
+  const [homeData, setHomeData] = useState(DEFAULT_HOME_DATA);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    preloadedDataPromise
       .then(data => {
         setHomeData(data?.nodeByUri?.homeFields || null);
         setLoading(false);
@@ -519,7 +523,9 @@ export default function Home() {
       
       {/* 1. Hero Section */}
       <section className="hero-section section-dark">
-        <ParticleBackground />
+        <Suspense fallback={null}>
+          <ParticleBackground />
+        </Suspense>
         
         <div className="padding-global">
           <div className="container-large hero-inner">
@@ -560,58 +566,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 1.5 Trusted By Logos (Marquee) */}
-      <LogoMarquee 
-        eyebrowText={homeData.trustedByText} 
-        speed={homeData.trustedByMarqueeSpeed}
-        size={homeData.trustedByLogoSize} 
-        logos={[
-          homeData.trustedByLogo1?.node,
-          homeData.trustedByLogo2?.node,
-          homeData.trustedByLogo3?.node,
-          homeData.trustedByLogo4?.node,
-          homeData.trustedByLogo5?.node,
-          homeData.trustedByLogo6?.node,
-          homeData.trustedByLogo7?.node,
-          homeData.trustedByLogo8?.node,
-          homeData.trustedByLogo9?.node,
-          homeData.trustedByLogo10?.node,
-          homeData.trustedByLogo11?.node,
-          homeData.trustedByLogo12?.node,
-          homeData.trustedByLogo13?.node,
-          homeData.trustedByLogo14?.node,
-          homeData.trustedByLogo15?.node,
-          homeData.trustedByLogo16?.node,
-          homeData.trustedByLogo17?.node,
-          homeData.trustedByLogo18?.node,
-          homeData.trustedByLogo19?.node,
-          homeData.trustedByLogo20?.node,
-        ].filter(Boolean)} 
-      />
+      <Suspense fallback={<div style={{ minHeight: '100vh' }}></div>}>
+        {/* 1.5 Trusted By Logos (Marquee) */}
+        <LogoMarquee 
+          eyebrowText={homeData.trustedByText} 
+          speed={homeData.trustedByMarqueeSpeed}
+          size={homeData.trustedByLogoSize} 
+          logos={[
+            homeData.trustedByLogo1?.node,
+            homeData.trustedByLogo2?.node,
+            homeData.trustedByLogo3?.node,
+            homeData.trustedByLogo4?.node,
+            homeData.trustedByLogo5?.node,
+            homeData.trustedByLogo6?.node,
+            homeData.trustedByLogo7?.node,
+            homeData.trustedByLogo8?.node,
+            homeData.trustedByLogo9?.node,
+            homeData.trustedByLogo10?.node,
+            homeData.trustedByLogo11?.node,
+            homeData.trustedByLogo12?.node,
+            homeData.trustedByLogo13?.node,
+            homeData.trustedByLogo14?.node,
+            homeData.trustedByLogo15?.node,
+            homeData.trustedByLogo16?.node,
+            homeData.trustedByLogo17?.node,
+            homeData.trustedByLogo18?.node,
+            homeData.trustedByLogo19?.node,
+            homeData.trustedByLogo20?.node,
+          ].filter(Boolean)} 
+        />
 
-      {/* Customer Stories Carousel */}
-      <CustomerStories 
-        eyebrowText={homeData.storiesEyebrow}
-        headlineText={homeData.storiesHeadline}
-        stories={stories}
-      />
+        {/* Customer Stories Carousel */}
+        <CustomerStories 
+          eyebrowText={homeData.storiesEyebrow}
+          headlineText={homeData.storiesHeadline}
+          stories={stories}
+        />
 
-      {/* Why Fullcast (Static Content) */}
-      <WhyFullcast 
-        eyebrow={homeData.whyEyebrow}
-        title={homeData.whyTitle}
-        description={homeData.whyDescription}
-        linkText={homeData.whyLinkText}
-        linkUrl={homeData.whyLinkUrl}
-      />
+        {/* Why Fullcast (Static Content) */}
+        <WhyFullcast 
+          eyebrow={homeData.whyEyebrow}
+          title={homeData.whyTitle}
+          description={homeData.whyDescription}
+          linkText={homeData.whyLinkText}
+          linkUrl={homeData.whyLinkUrl}
+        />
 
-      {/* Product Carousel */}
-      <ProductCarousel 
-        eyebrowText={homeData.productEyebrow}
-        headlineText={homeData.productHeadline}
-        subheadText={homeData.productSubhead}
-        products={products}
-      />
+        {/* Product Carousel */}
+        <ProductCarousel 
+          eyebrowText={homeData.productEyebrow}
+          headlineText={homeData.productHeadline}
+          subheadText={homeData.productSubhead}
+          products={products}
+        />
+      </Suspense>
 
 
       {/* 3. The AI-Native Advantage Section */}
@@ -633,36 +641,38 @@ export default function Home() {
             </div>
 
             <div className="advantage-rows-container">
-              <HoverRow 
-                number="(01)"
-                title={homeData.adv1Title}
-                description={homeData.adv1Desc}
-                ctaText={homeData.advCtaText}
-              />
-              <HoverRow 
-                number="(02)"
-                title={homeData.adv2Title}
-                description={homeData.adv2Desc}
-                ctaText={homeData.advCtaText}
-              />
-              <HoverRow 
-                number="(03)"
-                title={homeData.adv3Title}
-                description={homeData.adv3Desc}
-                ctaText={homeData.advCtaText}
-              />
-              <HoverRow 
-                number="(04)"
-                title={homeData.adv4Title}
-                description={homeData.adv4Desc}
-                ctaText={homeData.advCtaText}
-              />
-              <HoverRow 
-                number="(05)"
-                title={homeData.adv5Title}
-                description={homeData.adv5Desc}
-                ctaText={homeData.advCtaText}
-              />
+              <Suspense fallback={null}>
+                <HoverRow 
+                  number="(01)"
+                  title={homeData.adv1Title}
+                  description={homeData.adv1Desc}
+                  ctaText={homeData.advCtaText}
+                />
+                <HoverRow 
+                  number="(02)"
+                  title={homeData.adv2Title}
+                  description={homeData.adv2Desc}
+                  ctaText={homeData.advCtaText}
+                />
+                <HoverRow 
+                  number="(03)"
+                  title={homeData.adv3Title}
+                  description={homeData.adv3Desc}
+                  ctaText={homeData.advCtaText}
+                />
+                <HoverRow 
+                  number="(04)"
+                  title={homeData.adv4Title}
+                  description={homeData.adv4Desc}
+                  ctaText={homeData.advCtaText}
+                />
+                <HoverRow 
+                  number="(05)"
+                  title={homeData.adv5Title}
+                  description={homeData.adv5Desc}
+                  ctaText={homeData.advCtaText}
+                />
+              </Suspense>
             </div>
 
           </div>

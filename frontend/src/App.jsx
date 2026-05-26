@@ -1,9 +1,11 @@
+import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import PostDetail from './pages/PostDetail';
 import './App.css';
+
+import Home from './pages/Home';
+const PostDetail = React.lazy(() => import('./pages/PostDetail'));
 
 function App() {
   return (
@@ -11,10 +13,12 @@ function App() {
       <div className="app-wrapper">
         <Header />
         <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/post/:slug" element={<PostDetail />} />
-          </Routes>
+          <Suspense fallback={<div className="loading-fallback"></div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/post/:slug" element={<PostDetail />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

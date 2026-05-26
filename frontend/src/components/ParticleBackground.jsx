@@ -11,13 +11,14 @@ export default function ParticleBackground() {
     let animationFrameId;
     let particles = [];
     let isMouseDown = false;
+    let isVisible = true;
     
     // Configuración central extraída del sitio
     const settings = {
       colorPalette: ['rgba(200,240,255,0.85)'],
-      particleCount: 100,
-      connectionDistance: 130,
-      speed: 3,
+      particleCount: window.innerWidth < 768 ? 30 : 60, // Reduce density for mobile
+      connectionDistance: 110,
+      speed: 2,
       cursorRadius: 200,
       repelStrength: 10,
       attractStrength: 25,
@@ -30,7 +31,6 @@ export default function ParticleBackground() {
       constructor(w, h) {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        // La velocidad original era dividida por 5 en su constructor
         this.vx = (Math.random() - 0.5) * (settings.speed / 5);
         this.vy = (Math.random() - 0.5) * (settings.speed / 5);
         this.size = Math.random() * 2 + 1.5;
@@ -38,11 +38,9 @@ export default function ParticleBackground() {
       }
 
       update(w, h) {
-        // Rebote en los bordes
         if (this.x < 0 || this.x > w) this.vx *= -1;
         if (this.y < 0 || this.y > h) this.vy *= -1;
 
-        // Físicas de interacción con el cursor (Gravedad y Repulsión)
         if (mouse.x !== null && mouse.y !== null) {
           const dx = mouse.x - this.x;
           const dy = mouse.y - this.y;
@@ -54,11 +52,9 @@ export default function ParticleBackground() {
             const force = (mouse.radius - distance) / mouse.radius;
 
             if (isMouseDown) {
-              // Atracción
               this.x += dirX * force * settings.attractStrength;
               this.y += dirY * force * settings.attractStrength;
             } else {
-              // Repulsión
               this.x -= dirX * force * settings.repelStrength;
               this.y -= dirY * force * settings.repelStrength;
             }
@@ -68,21 +64,18 @@ export default function ParticleBackground() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Dibujar partícula
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = this.color;
-        ctx.shadowColor = 'rgba(0,176,196,0.25)';
-        ctx.shadowBlur = 6;
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        ctx.fill(); // Removed expensive shadowBlur during animation
       }
     }
 
     function initParticles(w, h) {
       particles = [];
       const density = (w * h) / 1000000;
-      const count = Math.floor(settings.particleCount * Math.max(0.5, density));
+      // Cap density multiplier to avoid massive O(N^2) slowdowns on 4k screens
+      const count = Math.floor(settings.particleCount * Math.min(1.5, Math.max(0.5, density)));
       for (let i = 0; i < count; i++) {
         particles.push(new Particle(w, h));
       }
@@ -94,7 +87,7 @@ export default function ParticleBackground() {
     function resizeCanvas() {
       const container = canvas.parentElement;
       const rect = container.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x resolution to save GPU/CPU
       
       if (!rect.width || !rect.height) return;
       
@@ -109,6 +102,9 @@ export default function ParticleBackground() {
 
     function drawConnections() {
       const limitSq = settings.connectionDistance * settings.connectionDistance;
+      ctx.lineWidth = settings.lineWidth;
+      ctx.strokeStyle = 'rgba(0,176,196,1)';
+      
       for (let a = 0; a < particles.length; a++) {
         for (let b = a + 1; b < particles.length; b++) {
           const dx = particles[a].x - particles[b].x;
@@ -119,8 +115,6 @@ export default function ParticleBackground() {
             const dist = Math.sqrt(distSq);
             const opacity = 1 - dist / settings.connectionDistance;
             ctx.globalAlpha = opacity * 0.45;
-            ctx.strokeStyle = 'rgba(0,176,196,1)';
-            ctx.lineWidth = settings.lineWidth;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
             ctx.lineTo(particles[b].x, particles[b].y);
@@ -132,7 +126,11 @@ export default function ParticleBackground() {
     }
 
     function animate() {
-      // Limpiar canvas en cada frame usando las dimensiones cacheadas
+      if (!isVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+      
       ctx.clearRect(0, 0, currentWidth, currentHeight);
       
       for (let i = 0; i < particles.length; i++) {
@@ -155,25 +153,34 @@ export default function ParticleBackground() {
       isMouseDown = false;
     }
 
-    // Inicializar el observer para cuando cambie de tamaño el viewport
     const container = canvas.parentElement;
+    
+    // Use Intersection Observer to pause animation when offscreen
+    const io = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+    });
+    io.observe(container);
+
     const ro = new ResizeObserver(resizeCanvas);
     ro.observe(container);
 
-    // Eventos
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseleave', onLeave);
-    window.addEventListener('mousedown', () => { isMouseDown = true; });
-    window.addEventListener('mouseup', () => { isMouseDown = false; });
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseleave', onLeave, { passive: true });
+    window.addEventListener('mousedown', () => { isMouseDown = true; }, { passive: true });
+    window.addEventListener('mouseup', () => { isMouseDown = false; }, { passive: true });
 
-    // Primera llamada
     resizeCanvas();
-    animate();
+    
+    // Delay the initial animation loop so it doesn't block the main thread during React hydration
+    const startTimeout = setTimeout(() => {
+      animate();
+    }, 1000);
 
-    // Cleanup
     return () => {
+      clearTimeout(startTimeout);
       cancelAnimationFrame(animationFrameId);
       ro.disconnect();
+      io.disconnect();
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseleave', onLeave);
       window.removeEventListener('mousedown', () => { isMouseDown = true; });
